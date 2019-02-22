@@ -1,0 +1,46 @@
+{
+  "name": "ampersand-form-fieldset",
+  "version": "0.0.1",
+  "description": " A better way to manage and validate dependent ampersand-form-view fields",
+  "main": "ampersand-form-fieldset.js",
+  "scripts": {
+    "test": "karma start --single-run karma.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RickButler/ampersand-form-fieldset.git"
+  },
+  "keywords": [
+    "form",
+    "fieldset",
+    "ampersand"
+  ],
+  "author": "Rick Butler <rick@rickbutler.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RickButler/ampersand-form-fieldset/issues"
+  },
+  "homepage": "https://github.com/RickButler/ampersand-form-fieldset#readme",
+  "devDependencies": {
+    "ampersand-view-conventions": "1.x.x",
+    "browserify": "16.x.x",
+    "karma": "3.x.x",
+    "karma-browserify": "6.x.x",
+    "karma-chrome-launcher": "2.x.x",
+    "karma-sauce-launcher": "2.x.x",
+    "karma-spec-reporter": "0.0.32",
+    "karma-tap": "3.x.x",
+    "karma-tap-pretty-reporter": "4.x.x",
+    "karma-tape": "0.0.1",
+    "karma-tape-reporter": "1.0.3",
+    "puppeteer": "1.x.x",
+    "tap": "11.x.x",
+    "tape": "4.x.x",
+    "tape-suite": "0.x.x",
+    "watchify": "3.x.x"
+  },
+  "dependencies": {
+    "ampersand-form-view": "^7.1.0",
+    "ampersand-view": "^10.0.3"
+  }
+}
