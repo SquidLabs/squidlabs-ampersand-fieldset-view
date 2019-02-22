@@ -1,14 +1,15 @@
 {
-  "name": "ampersand-form-fieldset",
+  "name": "squidlabs-ampersand-fieldset-view",
   "version": "0.0.1",
   "description": " A better way to manage and validate dependent ampersand-form-view fields",
-  "main": "ampersand-form-fieldset.js",
+  "main": "ampersand-fieldset-view.js",
   "scripts": {
-    "test": "karma start --single-run karma.conf.js"
+    "test": "karma start karma.conf.js --watch false ",
+    "start": "run-browser test/main.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RickButler/ampersand-form-fieldset.git"
+    "url": "git+https://github.com/SquidLabs/squidlabs-ampersand-fieldset-view.git"
   },
   "keywords": [
     "form",
@@ -18,29 +19,30 @@
   "author": "Rick Butler <rick@rickbutler.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/RickButler/ampersand-form-fieldset/issues"
+    "url": "https://github.com/SquidLabs/squidlabs-ampersand-fieldset-view/issues"
   },
-  "homepage": "https://github.com/RickButler/ampersand-form-fieldset#readme",
+  "homepage": "https://github.com/SquidLabs/squidlabs-ampersand-fieldset-viewt#readme",
   "devDependencies": {
+    "ampersand-input-view": "",
     "ampersand-view-conventions": "1.x.x",
     "browserify": "16.x.x",
-    "karma": "3.x.x",
+    "jsdom": "13.x.x",
+    "karma": "2.x.x",
     "karma-browserify": "6.x.x",
     "karma-chrome-launcher": "2.x.x",
+    "karma-jsdom-launcher": "7.x.x",
     "karma-sauce-launcher": "2.x.x",
-    "karma-spec-reporter": "0.0.32",
     "karma-tap": "3.x.x",
     "karma-tap-pretty-reporter": "4.x.x",
-    "karma-tape": "0.0.1",
-    "karma-tape-reporter": "1.0.3",
     "puppeteer": "1.x.x",
-    "tap": "11.x.x",
+    "run-browser": "^2.0.2",
     "tape": "4.x.x",
     "tape-suite": "0.x.x",
     "watchify": "3.x.x"
   },
   "dependencies": {
     "ampersand-form-view": "^7.1.0",
-    "ampersand-view": "^10.0.3"
+    "ampersand-view": "^10.0.3",
+    "lodash": "4.17.x"
   }
 }

@@ -1,21 +1,38 @@
-// setup a form
-// w/ single input
-// setup field group
-// test validation
-// test error messages
+var test = require('tape');
+var suite = require('tape-suite');
+var viewConventions = require('ampersand-view-conventions');
+var FieldsetView = require('../ampersand-fieldset-view');
+var InputView = require('ampersand-input-view');
 
-//var test = require('tape').test;
-//var suite = require('tape-suite');
-//var viewConventions = reuqire('ampersand-view-conventions');
-//var FieldsetView = require('../ampersand-fieldset');
+test('Fieldset tests', function (t) {
+    var fieldOptions = {
+        template: '<div><form data-hook="field-container"></form></div>',
+        autoAppend: true,
+        name: 'textField',
+        fields: function () {
+            return [
+                new InputView({ name: 'input', autoRender: true })
+            ];
+        }
+    };
 
-test('a set of some tests', function(t){
-    t.equal(true, true);
-    t.end();
-})
+    var testFieldset = FieldsetView.extend({
+        initialize: function (opts) {
+            FieldsetView.prototype.initialize.apply(this, arguments);
+            this.getField('input').parent = this;
+        }
+    })
+    /*t.test('a set of some tests', function (t) {
+        t.equal(true, true);
+        t.end();
+    });
 
-//fieldOptions = { autoRender: true, name: 'textField'};
+    t.end();*/
 
-//viewConventions.view(suite.tape, FieldsetView, fieldOptions);
-//viewConventions.formField(suite.tape, FieldsetView, fieldOptions)
+    viewConventions.view(suite.tape, testFieldset, fieldOptions);
+    viewConventions.formField(suite.tape, testFieldset, fieldOptions, { input: 'one' });
+});
+
+
+
 

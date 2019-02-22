@@ -1,26 +1,25 @@
-//process.env.CHROME_BIN = require('puppeteer').executablePath();
-
 module.exports = function (config) {
   config.set({
     basePath: '',
     plugins: [
-      //'karma-browserify',
-      'karma-chrome-launcher',
-      'karma-spec-reporter',
-      'karma-tape'
+      require('karma-browserify'),
+      require('karma-tap'),
+      require('karma-tap-pretty-reporter'),
+      require('karma-chrome-launcher'),
+      //require('karma-jsdom-launcher')
     ],
-    frameworks: [ 'tape'],//'browserify',
+    frameworks: ['browserify', 'tap'],
     files: [
-      'test/main.js'
+      'test/*.js'
     ],
-    /*preprocessors: {
+    preprocessors: {
       'test/*.js': ['browserify']
-    },*/
-    autoWatch: false,
-    reporters: ['spec'],
+    },
+    autoWatch: true,
+    reporters: ['tap-pretty'],
     colors: true,
     logLevel: config.LOG_INFO,
     browsers: ['Chrome'],
-    singleRun: true
+    singleRun: process.env.CONTINUOUS_INTEGRATION === 'true'
   });
 };

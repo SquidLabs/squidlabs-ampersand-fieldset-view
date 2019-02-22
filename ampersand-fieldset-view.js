@@ -1,14 +1,22 @@
 var View = require('ampersand-view');
+var InputView = require('ampersand-input-view');
 var FormView = require('ampersand-form-view');
+var some = require('lodash/some');
+var concat = require('lodash/concat');
+var set = require('lodash/set');
 
 module.exports = View.extend({
+    initialize: function (opts) {
+        FormView.prototype.initialize.apply(this, arguments);
+        if (opts.value) this.setValue(opts.value);
+    },
     template: [
-      '<fieldset>',
-        '<legend data-hook="legend"></legend>',        
+        '<fieldset>',
+        '<legend data-hook="legend"></legend>',
         '<div data-hook="message-container" class="message message-below message-error">',
-          '<p data-hook="message-text"></p>',
-        '</div>',        
-      '</fieldset>'
+        '<p data-hook="message-text"></p>',
+        '</div>',
+        '</fieldset>'
     ].join(''),
     bindings: {
         'name': {
@@ -46,6 +54,7 @@ module.exports = View.extend({
         }
     },
     props: {
+        el: 'element',
         name: 'string',
         placeholder: ['string', true, ''],
         legend: ['string', true, ''],
@@ -62,15 +71,12 @@ module.exports = View.extend({
     derived: {
         valid: {
             cache: false,
-            deps: ['inputValue'],
             fn: function () {
-                return !this.runTests();
-                for (var key in this._fieldViews) {
-                   
-                }
-                return this.clean(res);
+                return !some(concat(this._fieldViewsArray , this), function (fieldView) {
+                    return fieldView.runTests();
+                });
             }
-},
+        },
         value: {
             fn: function () {
                 var res = {};
@@ -92,20 +98,40 @@ module.exports = View.extend({
     },
     addField: FormView.prototype.addField,
     removeField: FormView.prototype.removeField,
-    getField: FormView.prototype.removeField,
-    setValue: FormView.prototype.setValues,
+    getField: FormView.prototype.getField,
+    setValue: function (data) {
+        for (var name in data) {
+            if (data.hasOwnProperty(name)) {
+                FormView.prototype.setValue.call(this, name, data[name]);
+            }
+        }
+    },
     setValues: FormView.prototype.setValues,
     checkValid: FormView.prototype.checkValid,
     beforeSubmit: FormView.prototype.beforeSubmit,
-    update: FormView.prototype.beforeSubmit,
+    update: function () {
+        if (this.parent) this.parent.update(this);
+    },
     remove: FormView.prototype.remove,
     handleSubmit: FormView.prototype.handleSubmit,
     reset: FormView.prototype.reset,
     clear: FormView.prototype.clear,
-    render: FormView.prototype.render,
+    clean: FormView.prototype.clean,
+    getErrorMessage: InputView.prototype.getErrorMessage,
+    runTests: InputView.prototype.runTests,
+    render: function () {
+        this.renderWithTemplate(this);
+
+        if (this.autoAppend) {
+            this.fieldContainerEl = this.query(this.fieldContainerEl || '[datahook~=field-container') || this.el;
+        }
+        this._fieldViewsArray.forEach(function renderEachField(fV) {
+            this.renderField(fV, true);
+        }, this);
+    },
     renderField: FormView.prototype.renderField,
     getValue: FormView.prototype.getValue,
-    setValue: FormView.prototype.setValue,
     getData: FormView.prototype.getData,
+
 });
 
